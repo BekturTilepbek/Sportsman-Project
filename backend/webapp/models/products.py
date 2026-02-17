@@ -1,11 +1,12 @@
 from autoslug import AutoSlugField
 from django.db import models
+from pytils.translit import slugify
 
 
 class Product(models.Model):
     category = models.ForeignKey("webapp.Category", related_name='products', on_delete=models.CASCADE, verbose_name="Категория")
     name = models.CharField(max_length=255, verbose_name="Название")
-    slug = AutoSlugField(populate_from='name', unique=True, always_update=True, default=None, verbose_name="URL")
+    slug = AutoSlugField(populate_from='name', unique=True, always_update=True, slugify=slugify)
     description = models.TextField(blank=True, verbose_name="Описание")
     price = models.DecimalField(max_digits=10, decimal_places=0, verbose_name="Цена")
     image = models.ImageField(upload_to='products/', verbose_name="Фото")

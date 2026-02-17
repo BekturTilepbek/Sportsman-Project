@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 from rest_framework.permissions import AllowAny
 
-from ..webapp.models import Category, Product, Order
+from webapp.models import Category, Product, Order
 from .serializers import CategorySerializer, ProductSerializer, OrderSerializer
 
 
