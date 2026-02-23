@@ -8,9 +8,10 @@ services:
       - ./backend:/app  # Чтобы изменения в коде сразу применялись без перезапуска
     ports:
       - "8000:8000"
+    environment: # <-- ДОБАВЛЯЕМ СЮДА
+      - DJANGO_SUPERUSER_PASSWORD=admin
     command: >
       sh -c "python manage.py migrate && 
-             python manage.py loaddata initial_data.json &&
-             export DJANGO_SUPERUSER_PASSWORD=admin && 
              python manage.py createsuperuser --username admin --email admin@example.com --noinput || true &&
+             python manage.py loaddata initial_data.json || true &&
              python manage.py runserver 0.0.0.0:8000"
