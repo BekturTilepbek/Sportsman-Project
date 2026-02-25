@@ -18,7 +18,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = ['product', 'quantity', 'price']
 
 class OrderSerializer(serializers.ModelSerializer):
-    items = OrderItemSerializer(many=True, read_only=True)
+    items = OrderItemInputSerializer(many=True, write_only=True)
 
     # Поле для чтения: тут мы покажем красивые данные после создания
     order_items = OrderItemSerializer(source='items', many=True, read_only=True)
@@ -34,7 +34,9 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # 1. "Вырезаем" товары из данных, так как их нельзя сохранить напрямую в модель Order
+        print(validated_data)
         items_data = validated_data.pop('items')
+
 
         # 2. Считаем общую сумму заказа на сервере (чтобы фронт не обманул с ценой)
         total_amount = 0

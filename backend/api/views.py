@@ -1,11 +1,16 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from rest_framework.mixins import ListModelMixin
 from rest_framework.permissions import AllowAny
+
+# Инструменты для документирования в Swagger
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+from drf_spectacular.types import OpenApiTypes
 
 from webapp.models import Category, Product, Order
 from .serializers import CategorySerializer, ProductSerializer, OrderSerializer
 
 
-class CategoryViewSet(ReadOnlyModelViewSet):
+class CategoryViewSet(ListModelMixin, GenericViewSet):
     """
     Отдает список категорий.
     Доступ: GET /api/v1/categories/
@@ -13,10 +18,9 @@ class CategoryViewSet(ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [AllowAny]
-    lookup_field = 'slug'  # Чтобы искать по URL /categories/protein/
 
 
-class ProductViewSet(ReadOnlyModelViewSet):
+class ProductViewSet(ListModelMixin, GenericViewSet):
     """
     Отдает список товаров.
     Доступ: GET /api/v1/products/
@@ -25,7 +29,23 @@ class ProductViewSet(ReadOnlyModelViewSet):
     queryset = Product.objects.all()  # Показываем только активные товары
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]
-    lookup_field = 'slug'  # URL вида /products/mutant-mass/
+
+    # Добавляем описание фильтра для Swagger
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name='category',
+                description='Слаг категории для фильтрации товаров (например: protein)',
+                required=False,
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+            )
+        ]
+    )
+
+    def list(self, request, *args, **kwargs):
+        # Метод list переопределен только ради декоратора @extend_schema
+        return super().list(request, *args, **kwargs)
 
     def get_queryset(self):
         # Кастомная фильтрация по категории
