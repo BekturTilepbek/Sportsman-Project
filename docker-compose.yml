@@ -15,3 +15,15 @@ services:
              python manage.py createsuperuser --username admin --email admin@example.com --noinput || true &&
              python manage.py loaddata initial_data.json || true &&
              python manage.py runserver 0.0.0.0:8000"
+frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: nextjs_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+             
