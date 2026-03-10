@@ -10,7 +10,7 @@ export const useProduct = () => {
 
   async function GetProducts() {
     try {
-      const {data} = await api.get(`/api/v1/products`);
+      const {data} = await api.get(`/api/v1/products/`);
       dispatch(SetProducts(data));
     } catch (error) {
       console.error("Ошибка загрузки продуктов:", error);
@@ -19,7 +19,7 @@ export const useProduct = () => {
 
     async function SearchProducts(slug:string) {
     try {
-      const {data} = await api.get(`/api/v1/products/${slug}`);
+      const {data} = await api.get(`/api/v1/products/${slug}/`);
 
       dispatch(SetProducts([data]));
     } catch (error) {
@@ -28,8 +28,8 @@ export const useProduct = () => {
   }
   async function SearchCategoryProducts(slug: string) {
     try {
-      const { data } = await api.get(`/api/v1/products?category=${slug}`);
-      dispatch(SetProducts(data)); // уже массив
+      const { data } = await api.get(`/api/v1/products?category=${slug}/`);
+      dispatch(SetProducts(data)); 
     } catch (error) {
       console.error("Ошибка фильтра по категории:", error);
     }

@@ -68,7 +68,7 @@ export default function MakingOrdering({ singleProduct }: MakingOrderingProps) {
   
 
   try {
-    const { data } = await api.post("/api/v1/orders", body);
+    const { data } = await api.post("/api/v1/orders/", body);
 
     localStorage.setItem("clientName", name);
     localStorage.setItem("clientPhone", phone);
