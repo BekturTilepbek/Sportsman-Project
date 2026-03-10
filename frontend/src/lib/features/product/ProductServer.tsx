@@ -1,6 +1,7 @@
 import axios from "axios";
 import { SetCategory, SetProducts } from "./ProductSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { api } from "@/shared/api/api";
 
 export const useProduct = () => {
   const dispatch = useAppDispatch();
@@ -9,7 +10,7 @@ export const useProduct = () => {
 
   async function GetProducts() {
     try {
-      const {data} = await axios.get("/api/products");
+      const {data} = await api.get(`/api/v1/products`);
       dispatch(SetProducts(data));
     } catch (error) {
       console.error("Ошибка загрузки продуктов:", error);
@@ -18,7 +19,7 @@ export const useProduct = () => {
 
     async function SearchProducts(slug:string) {
     try {
-      const {data} = await axios.get(`/api/products/${slug}`);
+      const {data} = await api.get(`/api/v1/products/${slug}`);
 
       dispatch(SetProducts([data]));
     } catch (error) {
@@ -27,7 +28,7 @@ export const useProduct = () => {
   }
   async function SearchCategoryProducts(slug: string) {
     try {
-      const { data } = await axios.get(`/api/products?category=${slug}`);
+      const { data } = await api.get(`/api/v1/products?category=${slug}`);
       dispatch(SetProducts(data)); // уже массив
     } catch (error) {
       console.error("Ошибка фильтра по категории:", error);
@@ -35,7 +36,7 @@ export const useProduct = () => {
   }
     async function GetSearchCategoryProducts() {
     try {
-      const {data} = await axios.get(`/api/categories/`);
+      const {data} = await api.get(`/api/v1/categories/`);
 
 
       dispatch(SetCategory(data));
