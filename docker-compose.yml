@@ -14,12 +14,14 @@ services:
     build: ./backend
     container_name: django_backend
     restart: always
-    volumes:
-      - ./backend:/app  # Чтобы изменения в коде сразу применялись без перезапуска
-    ports:
-      - "8000:8000"
     env_file:
       - .env  # <-- Django возьмет секреты отсюда
+    volumes:
+      - ./backend:/app  # Чтобы изменения в коде сразу применялись без перезапуска
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
     environment:
       - DATABASE_URL=True  # Это не секрет, это флаг-переключатель, оставим тут
       - POSTGRES_HOST=db
@@ -36,10 +38,12 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: nextjs_frontend
+    # Порт 3000 можно даже не прокидывать наружу, Nginx сам с ним общается внутри сети,
+    # но для удобства отладки оставим:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_API_URL=http://localhost/api/v1
     depends_on:
       - backend
 

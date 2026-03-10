@@ -131,16 +131,15 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'users.User'
 
-# Куда Django будет складывать собранную статику
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_ROOT = Path.joinpath(BASE_DIR, 'media')
+MEDIA_ROOT = '/app/media'
 MEDIA_URL = '/media/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# Куда Django будет складывать собранную статику
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     # Если у тебя уже есть этот словарь, просто добавь туда эту строчку:
