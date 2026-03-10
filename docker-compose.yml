@@ -1,17 +1,53 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    restart: always
+    env_file:
+      - .env  # <-- Докер возьмет пароли отсюда
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
   backend:
     build: ./backend
     container_name: django_backend
+    restart: always
     volumes:
       - ./backend:/app  # Чтобы изменения в коде сразу применялись без перезапуска
     ports:
       - "8000:8000"
-    environment: # <-- ДОБАВЛЯЕМ СЮДА
-      - DJANGO_SUPERUSER_PASSWORD=admin
+    env_file:
+      - .env  # <-- Django возьмет секреты отсюда
+    environment:
+      - DATABASE_URL=True  # Это не секрет, это флаг-переключатель, оставим тут
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
     command: >
-      sh -c "python manage.py migrate && 
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py migrate && 
              python manage.py createsuperuser --username admin --email admin@example.com --noinput || true &&
-             python manage.py loaddata initial_data.json || true &&
-             python manage.py runserver 0.0.0.0:8000"
+             gunicorn source.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_server
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

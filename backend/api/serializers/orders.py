@@ -3,6 +3,7 @@ import requests
 from rest_framework import serializers
 from webapp.models import Order, OrderItem, Product
 from .products import ProductSerializer
+from ..services import send_telegram_notification
 
 
 class OrderItemInputSerializer(serializers.Serializer):
@@ -87,38 +88,6 @@ class OrderSerializer(serializers.ModelSerializer):
 
         OrderItem.objects.bulk_create(order_items_objs)
 
-        try:
-            bot_token = "8231005052:AAGeAXcXXxk2lCi2ZY_O_P1TU_-s4uvwxys"
-            chat_id = "-5163233198"
-
-            # Красиво форматируем список товаров
-            items_text = ""
-            for item in order_items_objs:
-                items_text += f"— {item.product.name} ({item.quantity} шт.) - {item.price} сом\n"
-
-            # Формируем текст сообщения (HTML разметка)
-
-            message = (
-                f"🚨 *НОВЫЙ ЗАКАЗ*\n\n"
-                f"👤 *Клиент:* {order.first_name}\n"
-                f"📞 *Телефон:* `{order.phone}`\n"
-                f"🛒 *Товары:*\n{items_text}\n"
-                f"💰 *Итого к оплате: {order.total_amount} сом*"
-            )
-
-            # Отправляем запрос в Telegram (таймаут 5 секунд, чтобы не вешать сервер)
-            requests.post(
-                f"https://api.telegram.org/bot{bot_token}/sendMessage",
-                data={
-                    "chat_id": chat_id,
-                    "text": message,
-                    "parse_mode": "Markdown"
-                },
-                timeout=5
-            )
-        except Exception as e:
-            # Если ТГ упал или токен неверный, мы просто выводим ошибку в консоль.
-            # Главное - не возвращать ошибку 500 фронтенду, ведь заказ в БД уже успешно создан!
-            print(f"Ошибка отправки в Telegram: {e}")
+        send_telegram_notification(order, order_items_objs)
 
         return order

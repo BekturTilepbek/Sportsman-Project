@@ -5,6 +5,13 @@ venv/
 .env
 db.sqlite3
 
+backend/media/
+backend/staticfiles/
+
+# Gunicorn и сокеты
+*.ctl
+*.sock
+
 # Frontend
 
 
