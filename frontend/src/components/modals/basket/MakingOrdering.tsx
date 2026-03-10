@@ -7,7 +7,7 @@ import CardOrderingBasket from "@/components/cards/CardOrderingBasket";
 import { useAppSelector } from "@/lib/hooks";
 import { useBasket } from "@/lib/features/basket/BasketServer";
 import Loading from "@/ui/Loading";
-import axios from "axios";
+import { api } from "@/shared/api/api";
 
 type MakingOrderingProps = {
   singleProduct?: any;
@@ -68,7 +68,7 @@ export default function MakingOrdering({ singleProduct }: MakingOrderingProps) {
   
 
   try {
-    const { data } = await axios.post("/api/orders", body);
+    const { data } = await api.post("/api/v1/orders", body);
 
     localStorage.setItem("clientName", name);
     localStorage.setItem("clientPhone", phone);

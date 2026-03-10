@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { SetCategory, SetProducts } from "./ProductSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { api } from "@/shared/api/api";
