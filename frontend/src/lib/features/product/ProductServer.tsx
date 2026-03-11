@@ -28,7 +28,7 @@ export const useProduct = () => {
   }
   async function SearchCategoryProducts(slug: string) {
     try {
-      const { data } = await api.get(`/api/v1/products?category=${slug}/`);
+      const { data } = await api.get(`/api/v1/products?category=${slug}`);
       dispatch(SetProducts(data)); 
     } catch (error) {
       console.error("Ошибка фильтра по категории:", error);

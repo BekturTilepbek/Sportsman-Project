@@ -20,7 +20,7 @@ docker-compose.override.yml
 gunicorn.ctl
 
 # Frontend
-
+/node_modules
 
 # IDE
 .idea/

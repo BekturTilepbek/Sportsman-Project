@@ -51,11 +51,12 @@ export default function MakingOrdering({ singleProduct }: MakingOrderingProps) {
     setLoading(false);
     return;
   }
+  console.log(basket);
+  
 
   const body = {
     first_name: name,
     phone: phone,
-    email: "mirsichkar@gmail.com",
     total_amount: basket.price,
     items: productsToSend.map((item: any) => ({
       product_id: item.id,
