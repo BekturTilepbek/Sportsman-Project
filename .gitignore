@@ -1,19 +1,27 @@
-# Python
 __pycache__/
 *.py[cod]
+*$py.class
+.venv/
 venv/
-.env
+ENV/
+env/
 db.sqlite3
-
 backend/media/
 backend/staticfiles/
+backend/local_settings.py
 
-# Gunicorn и сокеты
+.env
+.env.local
+.env.*.local
+*.log
+docker-compose.override.yml
+# Тот самый файл сокета, о котором мы говорили
 *.ctl
-*.sock
+gunicorn.ctl
 
 # Frontend
 
 
 # IDE
 .idea/
+.DS_Store

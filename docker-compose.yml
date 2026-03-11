@@ -4,7 +4,7 @@ services:
     container_name: postgres_db
     restart: always
     env_file:
-      - .env  # <-- Докер возьмет пароли отсюда
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -15,15 +15,15 @@ services:
     container_name: django_backend
     restart: always
     env_file:
-      - .env  # <-- Django возьмет секреты отсюда
+      - .env
     volumes:
-      - ./backend:/app  # Чтобы изменения в коде сразу применялись без перезапуска
+      - ./backend:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=True  # Это не секрет, это флаг-переключатель, оставим тут
+      - DATABASE_URL=True
       - POSTGRES_HOST=db
     depends_on:
       - db
@@ -38,8 +38,6 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: nextjs_frontend
-    # Порт 3000 можно даже не прокидывать наружу, Nginx сам с ним общается внутри сети,
-    # но для удобства отладки оставим:
     ports:
       - "3000:3000"
     environment:

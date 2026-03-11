@@ -142,6 +142,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # Мы УДАЛЯЕМ 'rest_framework.authentication.SessionAuthentication'
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        # Разрешаем всем (гостям) создавать заказы
+        'rest_framework.permissions.AllowAny',
+    ),
     # Если у тебя уже есть этот словарь, просто добавь туда эту строчку:
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }

@@ -2,10 +2,8 @@ from django.db import models
 
 
 class Order(models.Model):
-    # Контактные данные (из формы оформления заказа на скрине)
     first_name = models.CharField(max_length=100, verbose_name="Имя")
     phone = models.CharField(max_length=20, verbose_name="Телефон")
-    email = models.EmailField(blank=True, verbose_name="Почта")
     total_amount = models.DecimalField(max_digits=10, decimal_places=0, default=0, verbose_name="Сумма заказа")
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,7 +14,7 @@ class Order(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"Заказ #{self.pk    } - {self.first_name}"
+        return f"Заказ #{self.pk} - {self.first_name}"
 
 
 class OrderItem(models.Model):

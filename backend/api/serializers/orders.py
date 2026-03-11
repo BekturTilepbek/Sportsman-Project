@@ -29,7 +29,7 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = [
-            'id', 'first_name', 'phone', 'email', 'total_amount', 'created_at', 'items',
+            'id', 'first_name', 'phone', 'total_amount', 'created_at',
             'items',  # <-- Входные данные (write_only)
             'order_items'  # <-- Выходные данные (read_only)
         ]
