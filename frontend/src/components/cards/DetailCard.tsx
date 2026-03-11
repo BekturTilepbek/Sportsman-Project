@@ -82,7 +82,7 @@ useEffect(() => {
                 <p className="text-[20px] font-[Montserrat] font-bold text-black">
                   {product.price} сом
                 </p>
-                <p className="text-gray-500 ">Mutant Creakong-креатиновый комплекс содержит три высоко эффективные формы креатина. 8ми летный иследование дали доказание высокий качества</p>
+                <p className="text-gray-500 ">{product?.description}</p>
               </div>
 
             </div>

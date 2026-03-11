@@ -62,8 +62,7 @@ export default function Card({ products }: CardType) {
       <div className="text-black mt-3">
         <h2 className="text-[20px] font-medium line-clamp-1">{products?.name}</h2>
         <p className="line-clamp-2 text-grey_second  p-1 ">
-          Mutant Creakong-креатиновый комплекс содержит три высоко эффективные
-          формы креатина. 8ми летный иследование дали доказание высокий качества
+          {products?.description}
         </p>
       </div>
       <div className="w-full mt-auto">

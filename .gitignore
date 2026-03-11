@@ -13,7 +13,7 @@ backend/staticfiles/
 *.sock
 
 # Frontend
-
+/node_modules
 
 # IDE
 .idea/
