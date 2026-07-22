@@ -6,7 +6,7 @@ from .models import Category, Product, Order, OrderItem
 
 @admin.register(Product)
 class ProductAdmin(ModelAdmin):
-    list_display = ('image_preview', 'name', 'price', 'category', 'is_original')
+    list_display = ('image_preview', 'name', 'price', 'discount_badge', 'category', 'is_original')
     list_display_links = ('name',)
     list_editable = ('price', 'category', 'is_original')   # правка прямо в списке
     list_filter = ('category', 'is_original')
@@ -17,6 +17,7 @@ class ProductAdmin(ModelAdmin):
     readonly_fields = ('image_big',)
     fieldsets = (
         ("Основное", {"fields": ("name", "category", "price", "is_original")}),
+        ("Скидка", {"fields": ("discount_percent", "discount_starts_at", "discount_ends_at")}),
         ("Описание", {"fields": ("description",)}),
         ("Фото", {"fields": ("image", "image_big")}),
     )
@@ -35,6 +36,20 @@ class ProductAdmin(ModelAdmin):
             return format_html(
                 '<img src="{}" style="max-width:240px;border-radius:12px;" />', obj.image.url)
         return "Фото не загружено"
+
+    @admin.display(description="Скидка")
+    def discount_badge(self, obj):
+        if not obj.discount_percent:
+            return "—"
+        if obj.is_discount_active:
+            return format_html(
+                '<span style="color:#fff;background:#16a34a;padding:2px 8px;'
+                'border-radius:6px;font-size:12px;">-{}% (цена: {})</span>',
+                obj.discount_percent, obj.final_price)
+        return format_html(
+            '<span style="color:#666;background:#eee;padding:2px 8px;'
+            'border-radius:6px;font-size:12px;">-{}% (неактивна)</span>',
+            obj.discount_percent)
 
 
 @admin.register(Category)

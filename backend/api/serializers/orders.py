@@ -64,11 +64,12 @@ class OrderSerializer(serializers.ModelSerializer):
         items_data = validated_data.pop('items')
 
         # 2. Считаем общую сумму заказа на сервере (чтобы фронт не обманул с ценой)
+        # Используем final_price — учитывает активную скидку товара на данный момент
         total_amount = 0
         for item in items_data:
             product = item['product_id']
             quantity = item['quantity']
-            total_amount += product.price * quantity
+            total_amount += product.final_price * quantity
 
         # 3. Создаем сам заказ
         order = Order.objects.create(total_amount=total_amount, **validated_data)
@@ -82,7 +83,7 @@ class OrderSerializer(serializers.ModelSerializer):
             order_items_objs.append(OrderItem(
                 order=order,
                 product=product,
-                price=product.price,  # Фиксируем цену на момент покупки
+                price=product.final_price,  # Фиксируем цену на момент покупки (с учётом скидки, если была активна)
                 quantity=quantity
             ))
 
