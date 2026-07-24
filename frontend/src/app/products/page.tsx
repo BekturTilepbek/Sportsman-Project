@@ -1,37 +1,3 @@
-// "use client";
-
-// import { Suspense, useEffect, useState } from "react";
-// import ListCard from "../components/ListCard/ListCard";
-// import CardLoad from "@/components/cards/CardLoad";
-// import { useAppSelector } from "@/lib/hooks";
-// import { useProduct } from "@/lib/features/product/ProductServer";
-// import { ProductType } from "@/lib/features/product/ProductSlice";
-
-// const HomePage = () => {
-
-
-//   // if (loading)
-//   //   return (
-//   //     <div className="mt-[250px]">
-//   //       <div className="container w-full  grid gap-5 md:gap-[20px] md:px-[20px] xl:px-0 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-//   //         {[1, 1, 1, 1].map((e, i) => (
-//   //           <CardLoad key={i} />
-//   //         ))}
-//   //       </div>
-//   //     </div>
-//   //   );
-
-//   return (
-//     <div className="container px-[10px] md:px-0 flex flex-col gap-[20px]">
-//       <ListCard />
-//     </div>
-//   );
-// };
-
-
-
-// export default HomePage;
-
 
 // "use client";
 
@@ -378,13 +344,13 @@ export default function HomePage() {
                initial={{ opacity: 0, x: 50 }}
                animate={{ opacity: 1, x: 0 }}
                transition={{ duration: 1, delay: 0.5 }}
-               className=" hidden md:block"
+               className="absolute right-12 z-0 hidden md:block"
             >
               <Image
                 src="/logo.svg"
                 className="filter brightness-75 contrast-200"
-                width={255}
-                height={250}
+                width={205}
+                height={200}
                 priority
                 alt="лого СпортсМен"
               />
@@ -439,17 +405,21 @@ export default function HomePage() {
               <div className="relative z-10 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
                 <div className="max-w-2xl">
                   <span className="text-red_first font-bold tracking-wider uppercase text-sm mb-2 block">
-                    #БУДЬ СИЛЬНЫМ!
+                    #ЭРКТҮҮ БОЛ!
                   </span>
                   <h2 className="text-3xl md:text-5xl font-black uppercase text-white mb-4 leading-tight">
-                    Измени своё тело за <br className="hidden md:block" />
-                    <span className="text-red_first">21 день!</span>
+                    21 күндө <br className="hidden md:block" />
+                    <span className="text-red_first">денеңди өзгөрт!</span>
                   </h2>
                   <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-6">
-                    Правильное питание, поддерживающие тренировки и медицинский контроль — всё в одном месте! Начни чувствовать себя по-новому уже через 21 день! Персональный комплекс для похудения: диетолог, тренер, спортивное питание и мотивация в одной программе.
+                    Туура тамактануу, колдоочу машыгуулар жана медициналык
+                    көзөмөл – баары бир жерде! 21 күндүн ичинде өзүңдү жаңыча
+                    сезип башта! Ар кимге ылайыкташкан арыктоо топтому:
+                    диетолог, тренер, спорт азыктары жана мотивация бир
+                    программада.
                   </p>
                   <button className="bg-red_first text-white px-8 py-4 rounded-[10px] font-bold uppercase tracking-wide hover:bg-red-700 transition hover:shadow-[0_0_20px_rgba(220,38,38,0.5)]">
-                    Получить бесплатную консультацию
+                    Акысыз консультация алуу
                   </button>
                 </div>
               </div>
@@ -466,21 +436,21 @@ export default function HomePage() {
           >
             {[
               {
-                title: "Персональные тренеры",
-                items: ["Бег и плавание", "Фитнес и силовые тренировки", "Йога и растяжка", "Бокс и функциональные тренировки"],
-                note: "📌 Первая тренировка бесплатно!",
+                title: "Жеке машыктыруучулар",
+                items: ["Жүгүрүү жана сууга сүзүү", "Фитнес жана күч машыгуулары", "Йога жана ийкемдүүлүк", "Бокс жана функционалдык машыгуулар"],
+                note: "📌 Биринчи машыгуу бекер!",
                 isBadge: true
               },
               {
-                title: "Медицинское обследование",
-                items: ["Общий анализ крови", "Гормоны и витамины", "Консультация врача", "Рекомендации по здоровью и"],
-                note: "Безопасно. Быстро. Под контролем профессионалов.",
+                title: "Медициналык текшерүү",
+                items: ["Кан жалпы анализи", "Гормондор, витаминдер", "Дарыгер менен консультация", "Ден соолук жана жүктөмдөр боюнча кеңештер"],
+                note: "Коопсуз. Ыкчам. Кесипкөй адистердин көзөмөлүндө.",
                 isBadge: false
               },
               {
                 title: "Диетолог",
-                items: ["Снижение веса", "Набор мышечной массы", "Спортивное питание", "Баланс витаминов и питательных веществ"],
-                note: "Всё с учётом твоих анализов и образа жизни.",
+                items: ["Салмакты төмөндөтүү", "Мышца массасын көбөйтүү", "Спорттук тамактануу", "Витаминдер менен азыктык заттардын балансы"],
+                note: "Бардыгы сенин анализдериңди жана жашоо образын эске алуу менен.",
                 isBadge: false
               }
             ].map((block, i) => (

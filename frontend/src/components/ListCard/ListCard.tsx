@@ -9,11 +9,14 @@ import { useProduct } from "@/lib/features/product/ProductServer";
 
 const ListCard: FC = () => {
   const { GetProducts } = useProduct();
-  const { products, loading } = useAppSelector((state) => state.product);
-
+  // const { products, loading } = useAppSelector((state) => state.product);
+const productState = useAppSelector((state) => state?.product);
+const products = productState?.products || [];
+const loading = productState?.loading || false;
   useEffect(() => {
     GetProducts();
   }, []);
+
 
   return (
     <div className="mt-[40px]">

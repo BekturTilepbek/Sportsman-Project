@@ -39,6 +39,10 @@
   --radius:10px;
     --filter-white: grayscale(100%) brightness(0%) invert(1);
   --filter-black: grayscale(100%) brightness(0%);
+
+  --gradient-bronze: linear-gradient(90deg, rgba(70, 45, 10, 1) 0%, rgba(123, 83, 24, 1) 25%, rgba(255, 244, 145, 1) 50%, rgba(190, 164, 59, 1) 75%, rgba(70, 45, 10, 1) 100%);
+  --gradient-emerald: radial-gradient(circle at center, #11663e 0%, #0a3c25 55%, #041e12 100%);
+  --color-red-deep: #c90808;
 }
 
 
@@ -53,6 +57,8 @@
 
 body {
   /* color: var(--white); */
+  background: var(--gradient-bronze);
+  /* background:#1e2128; */
   font-family: 'Roboto';
 }
 
@@ -177,9 +183,7 @@ input:checked {
 }
 
 @media screen and (max-width: 768px) {
-  body {
-    background: white;
-  }
+
   /* .container {
     padding-left: 20px;
     padding-right: 20px;

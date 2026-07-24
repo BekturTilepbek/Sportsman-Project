@@ -38,6 +38,11 @@ export default {
         yellow: "var(--yellow)",
         green_first: "var(--green_first)",
         green_second: "var(--green_second)",
+        red_deep: "var(--color-red-deep)",
+      },
+      backgroundImage: {
+        'gradient_bronze': 'var(--gradient-bronze)',
+        'gradient_emerald': 'var(--gradient-emerald)',
       },
     },
   },

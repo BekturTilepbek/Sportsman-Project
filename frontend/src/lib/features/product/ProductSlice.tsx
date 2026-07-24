@@ -16,7 +16,14 @@ export interface ProductType {
   image: string
   is_original: boolean
   created_at: string  
+  discount_percent: number
+  discount_starts_at: string | null
+  discount_ends_at: string | null
+  is_discount_active: boolean
+  final_price: string
 }
+
+
 
 interface ProductState {
   products: ProductType[];
