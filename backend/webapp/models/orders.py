@@ -4,6 +4,8 @@ from django.db import models
 class Order(models.Model):
     first_name = models.CharField(max_length=100, verbose_name="Имя")
     phone = models.CharField(max_length=20, verbose_name="Телефон")
+    address = models.CharField(max_length=255, blank=True, default='', verbose_name="Адрес доставки")
+    comment = models.TextField(blank=True, default='', verbose_name="Комментарий к заказу")
     total_amount = models.DecimalField(max_digits=10, decimal_places=0, default=0, verbose_name="Сумма заказа")
 
     created_at = models.DateTimeField(auto_now_add=True)

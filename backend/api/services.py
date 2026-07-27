@@ -21,6 +21,15 @@ def send_telegram_notification(order, order_items):
             f"🚨 *НОВЫЙ ЗАКАЗ*\n\n"
             f"👤 *Клиент:* {order.first_name}\n"
             f"📞 *Телефон:* `{order.phone}`\n"
+        )
+
+        if order.address:
+            message += f"🏠 *Адрес доставки:* {order.address}\n"
+
+        if order.comment:
+            message += f"💬 *Комментарий:* {order.comment}\n"
+
+        message += (
             f"🛒 *Товары:*\n{items_text}\n"
             f"💰 *Итого к оплате: {order.total_amount} сом*"
         )
