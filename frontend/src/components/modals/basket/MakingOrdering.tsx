@@ -23,7 +23,6 @@
 //   const [client, setClient] = useState(false);
 //   const [loading, setLoading] = useState(false);
 
-
 //   useEffect(() => {
 //     const savedName = localStorage.getItem("clientName");
 //     const savedPhone = localStorage.getItem("clientPhone");
@@ -52,7 +51,6 @@
 //     return;
 //   }
 //   console.log(basket);
-  
 
 //   const body = {
 //     first_name: name,
@@ -66,7 +64,6 @@
 
 //   console.log(basket.products);
 //   console.log(body);
-  
 
 //   try {
 //     const { data } = await api.post("/api/v1/orders/", body);
@@ -181,6 +178,8 @@ export default function MakingOrdering({ singleProduct }: MakingOrderingProps) {
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [comment, setComment] = useState("");
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -215,6 +214,8 @@ export default function MakingOrdering({ singleProduct }: MakingOrderingProps) {
     const body = {
       first_name: name,
       phone: phone,
+      address: address,
+      comment: comment,
       total_amount: basket.price,
       items: productsToSend.map((item: any) => ({
         product_id: item.id,
@@ -244,7 +245,6 @@ export default function MakingOrdering({ singleProduct }: MakingOrderingProps) {
       style={{ background: borderGradient }}
     >
       <div className="bg-gradient_emerald rounded-[19px] w-full flex flex-col md:flex-row overflow-hidden relative text-white">
-        
         <button
           onClick={closeModal}
           className="absolute right-[20px] top-[15px] rotate-45 text-white  transition-colors text-4xl z-20 bg-transparent border-none"
@@ -294,6 +294,22 @@ export default function MakingOrdering({ singleProduct }: MakingOrderingProps) {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 type="tel"
+              />
+
+              <input
+                className="w-full rounded-[10px] bg-[#1a1a1a] border border-white/10 px-[20px] py-[20px] text-white placeholder:text-gray-500 focus:outline-none focus:border-red_first transition-colors"
+                placeholder="Ваш адрес (Необязательно)"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                type="text"
+              />
+
+              <input
+                className="w-full rounded-[10px] bg-[#1a1a1a] border border-white/10 px-[20px] py-[20px] text-white placeholder:text-gray-500 focus:outline-none focus:border-red_first transition-colors"
+                placeholder="Ваш комментарий"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                type="text"
               />
             </div>
 
